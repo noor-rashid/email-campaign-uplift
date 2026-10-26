@@ -13,5 +13,5 @@ jobs:
         run: uv run 
       - name: Lint
         run: uv run ruff check .
-      - name: Test
+      - name: maths.py
         run: uv run pytest
