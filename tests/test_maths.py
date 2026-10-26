@@ -1,4 +1,4 @@
-from email_campaign_uplift.pythontest import sums
+from email_campaign_uplift.math import sums
 
 
 def test_sums():
