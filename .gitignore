@@ -9,5 +9,11 @@ wheels/
 # Virtual environments
 .venv
 
+#credentials
+.env
+
 #journals
 journal.md
+
+#folders
+data/
