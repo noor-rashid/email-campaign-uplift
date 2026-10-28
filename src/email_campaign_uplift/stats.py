@@ -1,11 +1,10 @@
 from scipy.stats import chisquare
 import pandas as pd
+from typing import List
 
+def hillstrom_srm_check(obs_counts: List[int], expected_shares: List[float]) -> float:
+    total_users = sum(obs_counts)
+    expected = [i*total_users for i in expected_shares]
+    chi = chisquare(f_obs=obs_counts, f_exp=expected)
+    return chi[1]
 
-def hillstrom_srm_check(data: pd.DataFrame) -> float:
-    """performs a sample ratio mismatch via chisquare test of independence"""
-    observed = data["segment"].value_counts()
-    total_users = sum(observed)
-    expected = [total_users/3, total_users/3, total_users/3]
-    chi_stat = chisquare(observed, f_exp=expected)
-    return chi_stat[1]

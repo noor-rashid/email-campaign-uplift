@@ -1,5 +1,4 @@
 import pandas as pd
-from urllib.request import urlopen
 from pathlib import Path
 
 url = "http://www.minethatdata.com/Kevin_Hillstrom_MineThatData_E-MailAnalytics_DataMiningChallenge_2008.03.20.csv"
