@@ -13,7 +13,8 @@ wheels/
 .env
 
 #journals
-journal.md
+journal/
+
 
 #folders
 data/
