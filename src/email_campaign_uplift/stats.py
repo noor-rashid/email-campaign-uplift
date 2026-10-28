@@ -1,7 +1,8 @@
-from scipy.stats import chisquare
-from typing import List
 
-def srm_check(obs_counts: List[int], expected_shares: List[float]) -> float:
+from scipy.stats import chisquare
+
+
+def srm_check(obs_counts: list[int], expected_shares: list[float]) -> float:
     """performing a chisquare goodness of fit test to check SRM"""
     total_users = sum(obs_counts)
     expected = [i*total_users for i in expected_shares]
