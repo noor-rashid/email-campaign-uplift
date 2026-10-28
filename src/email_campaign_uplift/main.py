@@ -1,5 +1,5 @@
-from email_campaign_uplift.stats import srm_check
 from email_campaign_uplift.data import load_hillstrom_data
+from email_campaign_uplift.stats import srm_check
 
 if __name__ == "__main__":
     data = load_hillstrom_data("data/hillstrom_data.csv")
