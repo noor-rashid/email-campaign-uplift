@@ -28,6 +28,11 @@ def explore_hillstrom_data(data: pd.DataFrame) -> None:
     for col in data.columns:
         print(data[col].value_counts())
 
+def get_metric_group_sizes(data: pd.DataFrame, group: pd.Series, metric: pd.Series) -> pd.DataFrame:
+    """Takes a desired grouping and metrc and returns a DataFrame with aggs"""
+    grouping = data.groupby(group)[metric].agg(['sum', 'mean', 'count'])
+    return grouping
+
 #save the data to disk
 def save_hillstrom_data(data: pd.DataFrame) -> None:
     data_dir = Path("data/")
