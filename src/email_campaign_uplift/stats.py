@@ -1,5 +1,5 @@
 import numpy as np
-from scipy
+from scipy.stats import norm
 from scipy.stats import chisquare
 from email_campaign_uplift.data import get_metric_group_sizes
 
