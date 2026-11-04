@@ -7,6 +7,7 @@ metric_col = 'visit'
 group_col = 'segment'
 expected_shares = [1/3, 1/3, 1/3]
 srm_alpha = 0.001
+z_test_alpha = 0.05
 
 if __name__ == "__main__":
     data = load_hillstrom_data("data/hillstrom_data.csv")
@@ -30,10 +31,11 @@ if __name__ == "__main__":
     print("Perform a one sided two-proportion z test; a positive z means treatment success rate is higher")
     print("The treatment success rate was", round(success_t_rate, 3)*100,"%")
     print("The control success rate was", round(success_c_rate,3)*100,"%")
-    print("The difference in the two rates was", round(success_t_rate-success_c_rate, 3)*100,"%")
+    print("The difference in the two rates was", round(success_t_rate-success_c_rate, 3)*100,"pct points")
     z, p_value = z_test_two_proportion(success_t, success_c, size_t, size_c)
     print(f"z_statistic is POSITIVE: {z>0}")
     print("the z statitic was", round(z, 3))
     print("the p_value from the one side two-proportioned z_test was < 0.001: ", p_value < 0.001)
-
+    print(f"p_value (area under the curve for upper tail) was < 0.001, smaller than our alpha of {z_test_alpha}")
+    print("We can therefore reject the null hyptothesis in favour of the alternative hypothesis that the treatment (women's email) increases the true visit rate")
 
