@@ -13,7 +13,6 @@ if __name__ == "__main__":
     chi = srm_check(obs_counts, expected_shares)
     if chi[1] > 0.5:
         print("SRM likely. Stop process")
-    print(obs_counts)
-    print(srm)
+    
 
 
