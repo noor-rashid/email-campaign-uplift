@@ -1,3 +1,5 @@
+from collections.abc import Sequence
+
 import numpy as np
 import pytest
 from statsmodels.stats.proportion import proportions_ztest
@@ -13,7 +15,13 @@ success_c = count[1]
 size_t = nobs[0]
 size_c = nobs[1]
 
-def statsmodels_prop_ztest(count: NDArray[np.int64], nobs: NDArray[np.int64], alternative: str) -> tuple[float, float]:
+
+
+def statsmodels_prop_ztest(
+    count: Sequence[int],
+    nobs: Sequence[int],
+    alternative: str
+) -> tuple[float, float]:
     """
     uses the statsmodels python library to perform a test for proportions based on a normal (z) test
 
