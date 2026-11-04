@@ -40,5 +40,5 @@ if __name__ == "__main__":
         print(f"p_value (area under the curve for upper tail) was < 0.001, smaller than our alpha of {z_test_alpha}")
         print("We can therefore reject the null hyptothesis in favour of the alternative hypothesis that the treatment increases the true visit rate")
     else:
-        print("p_value greater than our stated alpha", p_value, z_test_alpa)
+        print("p_value greater than our stated alpha", p_value, z_test_alpha)
         print("therefore, we fail to reject the null hypothesis that there is no difference between treatment and control ")
