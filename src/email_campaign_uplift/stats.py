@@ -10,23 +10,23 @@ def srm_check(obs_counts: list[int], expected_shares: list[float]) -> float:
     return chi[1]
 
 def z_test_two_proportion(success_t: int, success_c: int, size_t: int, size_c: int) -> tuple[float, float]:
-    """one sided two-proportion z_test: tests whether treatment conversion rate is higher than 
-    the control conversion rate.
+    """one sided two-proportion z_test: tests whether treatment success rate is higher than 
+    the control success rate.
 
     uses a pooled standard error undr the null hypothesis (p_t == p_c). The z_statistic
-    is (p_t - p_c), so a positive z means that treatment is higher
+    is (p_t - p_c)/se, so a positive z means that treatment is higher
     
     Args: 
-        success_t = int #number of successes in treatment group
-        success_c = int #number of successes in control group
-        size_t = int #size of the treatment group
-        size_c = int #size of the control group
+        success_t: #number of successes in treatment group
+        success_c:  #number of successes in control group
+        size_t:  #size of the treatment group
+        size_c: #size of the control group
 
     Returns:
         (z, p_value) as floats. p_value is the upper tail area
         
     """
-    #point estimates for the conversion rate for each group
+    #point estimates for the success rate for each group
     p_t = success_t/size_t  
     p_c = success_c/size_c 
 
@@ -40,7 +40,7 @@ def z_test_two_proportion(success_t: int, success_c: int, size_t: int, size_c: i
     #test stat, observed difference divided by the standard error under h0
     z = (p_t - p_c) / se
     
-    #one sided pval, probability of a z this large under h0
+    #one sided pval, probability of a z at least this large under h0
     p_value = norm.sf(z) 
     
     return (z, p_value) 
