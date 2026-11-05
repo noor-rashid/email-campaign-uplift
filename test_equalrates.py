@@ -6,8 +6,8 @@ from email_campaign_uplift.stats import z_test_two_proportion
 success_t = 100
 success_c = 100
 size_t = 1000
-size_c = 998
+size_c = 1000
 
 def test_ztest_equal():
-    """this test would pass if test_stat, z, is exactly 0"""
-    assert z_test_two_proportion(success_t, success_c, size_t, size_c) == 0
+    """this test would pass if test_stat, z, is exactly 0 and p_val would be 0.5"""
+    assert z_test_two_proportion(success_t, success_c, size_t, size_c) == (0, 0.5)
