@@ -30,7 +30,6 @@ def explore_hillstrom_data(data: pd.DataFrame) -> None:
 
 def get_metric_group_sizes(data: pd.DataFrame, group_col: str, metric_col: str) -> pd.DataFrame:
     """Takes a desired grouping and metrc and returns a DataFrame with aggs"""
-    print("GETTING GROUP SIZES")
     grouping = data.groupby(group_col)[metric_col].agg(['sum', 'mean', 'count'])
     return grouping
 

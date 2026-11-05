@@ -35,9 +35,9 @@ if __name__ == "__main__":
     z, p_value = z_test_two_proportion(success_t, success_c, size_t, size_c)
     print(f"z_statistic is POSITIVE: {z>0}")
     print("the z statitic was", round(z, 3))
+    print("the p_value from the ztest", p_value)
     if p_value < z_test_alpha: 
-        print("the p_value from the one side two-proportioned z_test was < 0.001: ", p_value < 0.001)
-        print(f"p_value (area under the curve for upper tail) was < 0.001, smaller than our alpha of {z_test_alpha}")
+        print(f"the p_value from the one side two-proportioned z_test was < {z_test_alpha}")
         print("We can therefore reject the null hyptothesis in favour of the alternative hypothesis that the treatment increases the true visit rate")
     else:
         print("p_value greater than our stated alpha", p_value, z_test_alpha)

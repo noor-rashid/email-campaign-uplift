@@ -1,6 +1,5 @@
 import numpy as np
 from scipy.stats import chisquare, norm
-from statsmodels.stats.proportion import proportions_ztest
 
 
 def srm_check(obs_counts: list[int], expected_shares: list[float]) -> float:
@@ -48,21 +47,4 @@ def z_test_two_proportion(success_t: int, success_c: int, size_t: int, size_c: i
 
 
 
-def statsmodels_prop_ztest(count: int, nobs: int, alternative: str) -> tuple[float, float]:
-    """
-    def statsmodels_z_proportion_test(count: int, nobs: int, value: float) -> tuple[float, float]:
 
-    uses the statsmodels python library to perform a test for proportions based on a normal (z) test
-
-    count: number of successes in nobs trials. if an array, represents successes in each group
-    nobs: the number of trials, the same length as count
-
-    alternative(str): larger means prop > value (default value is 0)
-
-    returns:
-    z test statistic and p_value
-    """
-
-    stat, pval = proportions_ztest(count, nobs, alternative=alternative)
-
-    return stat, pval
