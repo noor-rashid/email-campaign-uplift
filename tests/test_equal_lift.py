@@ -7,4 +7,4 @@ size_t = 1000
 size_c = 1000
 
 def test_equal_lift():
-    assert calculate_lift(success_t, success_c, size_t, size_c) == [0.1, 0.0]
+    assert calculate_lift(success_t, success_c, size_t, size_c) == (0.0, 0.0)

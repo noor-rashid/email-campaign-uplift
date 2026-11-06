@@ -66,7 +66,7 @@ def calculate_lift(success_t: int, success_c: int, size_t: int, size_c: int) -> 
     p_t = success_t / size_t 
     p_c = success_c / size_c
 
-    abs_lift = p_t - p_c, 3
-    rel_lift = (p_t-p_c)/p_c,
+    abs_lift = p_t - p_c
+    rel_lift = (p_t-p_c)/p_c
 
     return abs_lift, rel_lift
