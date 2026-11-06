@@ -1,5 +1,6 @@
-from email_campaign_uplift.stats import calculate_lift
 import pytest
+
+from email_campaign_uplift.stats import calculate_lift
 
 success_t = 100
 success_c = 0
