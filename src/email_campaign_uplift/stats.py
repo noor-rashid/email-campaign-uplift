@@ -47,4 +47,26 @@ def z_test_two_proportion(success_t: int, success_c: int, size_t: int, size_c: i
 
 
 
+def calculate_lift(success_t: int, success_c: int, size_t: int, size_c: int) -> tuple[float, float]:
+    """
+    calculates the absolute and relative lift between the two variants.
 
+    Args:
+        success_t: int, number of successes in treatment
+        success_c: int, number of successes in control
+        size_t: int, total size of treatment
+        size_c: int, total size of control
+
+    Returns:
+        absolute_lift: float, fraction, difference between treatment and control
+        relative_lift: float, fraction, change between treatment and control
+
+    """
+
+    p_t = success_t / size_t 
+    p_c = success_c / size_c
+
+    abs_lift = p_t - p_c, 3
+    rel_lift = (p_t-p_c)/p_c,
+
+    return abs_lift, rel_lift
