@@ -71,9 +71,9 @@ def calculate_lift(success_t: int, success_c: int, size_t: int, size_c: int) -> 
 
     return abs_lift, rel_lift
 
-def wald_ci_diff(success_t, success_c, size_t, size_c, alpha=0.05) -> tuple[float, float]:
+def wald_ci_diff(success_t: int, success_c: int, size_t: int, size_c: int, alpha: float = 0.05) -> tuple[float, float]:
     """
-    creates 95% confidence interval. unpooled. two-sided
+    creates 1-alpha confidence interval. unpooled. two-sided
     
     Args:
         success_t: int, number of successes in treatment
