@@ -105,3 +105,43 @@ def wald_ci_diff(success_t: int, success_c: int, size_t: int, size_c: int, alpha
     
 
     return lower, upper
+
+def bootstrap_ci_diff(success_t: int, success_c: int, size_t: int, size_c: int, n_boot: int =10_000, alpha: float =0.05, seed: int = 42) -> tuple[float, float]:
+    """
+    performs confidence interval bootstrap sampling
+
+    Args:
+        success_t: int, number of successes in treatment
+        success_c: int, number of successes in control
+        size_t: int, total size of treatment
+        size_c: int, total size of control
+        n_boot: int, number of bootstrap samples
+        alpha: float, significance level
+        seed: int, for reproducibility 
+    
+    Returns:
+        lower: float, lower bound of confidence interval
+        upper: float, upper bound of confidence interval
+
+    """
+
+    rng = np.random.default_rng(seed)
+    treatment_ones = np.ones(success_t)
+    treatment_zeros = np.zeros(size_t-success_t)
+    treatment_total = np.concatenate([treatment_ones, treatment_zeros])
+
+    control_ones = np.ones(success_c)
+    control_zeros = np.zeros(size_c-success_c)
+    control_total = np.concatenate([control_ones, control_zeros])
+
+    lifts = np.empty(n_boot)
+
+    for i in range(n_boot):
+        treatment_sample = rng.choice(treatment_total, size=size_t, replace=True)
+        control_sample = rng.choice(control_total, size=size_c, replace=True)
+        diff_of_means = treatment_sample.mean() - control_sample.mean()
+        lifts[i] = diff_of_means
+    
+    lower, upper = np.quantile(lifts, [alpha/2, 1-alpha/2])
+    return lower, upper
+

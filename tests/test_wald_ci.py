@@ -1,7 +1,7 @@
 import pytest
-
 from statsmodels.stats.proportion import confint_proportions_2indep
-from email_campaign_uplift.stats import calculate_lift, wald_ci_diff 
+
+from email_campaign_uplift.stats import calculate_lift, wald_ci_diff
 
 success_t = 120
 success_c = 100
