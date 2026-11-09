@@ -120,6 +120,7 @@ def bootstrap_ci_diff(success_t: int, success_c: int, size_t: int, size_c: int, 
         seed: int, for reproducibility 
     
     Returns:
+        a two-sided (1 - alpha) confidence interval for the difference in rates (treatment − control), using the percentile bootstrap
         lower: float, lower bound of confidence interval
         upper: float, upper bound of confidence interval
 
