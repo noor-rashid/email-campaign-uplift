@@ -70,3 +70,38 @@ def calculate_lift(success_t: int, success_c: int, size_t: int, size_c: int) -> 
     rel_lift = (p_t-p_c)/p_c
 
     return abs_lift, rel_lift
+
+def wald_ci_diff(success_t, success_c, size_t, size_c, alpha=0.05) -> tuple[float, float]:
+    """
+    creates 95% confidence interval. unpooled. two-sided
+    
+    Args:
+        success_t: int, number of successes in treatment
+        success_c: int, number of successes in control
+        size_t: int, total size of treatment
+        size_c: int, total size of control
+        alpha: float, significance level
+
+    Returns:
+        lower: float
+        upper: float
+    """
+    #point estimates
+    p_t = success_t / size_t
+    p_c = success_c / size_c
+    diff = p_t - p_c
+
+    #standard error
+    variance_t = p_t*(1-p_t)
+    variance_c = p_c*(1-p_c)
+    se = np.sqrt(variance_t/size_t + variance_c/size_c)
+
+    #confidence intervals at 95%
+    alpha = alpha/2
+    critical_val = norm.ppf(1-alpha)
+
+    upper = diff + critical_val * se
+    lower = diff - critical_val * se
+    lower, upper
+
+    return lower, upper
