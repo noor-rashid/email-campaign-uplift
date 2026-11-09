@@ -102,6 +102,6 @@ def wald_ci_diff(success_t, success_c, size_t, size_c, alpha=0.05) -> tuple[floa
 
     upper = diff + critical_val * se
     lower = diff - critical_val * se
-    lower, upper
+    
 
     return lower, upper
