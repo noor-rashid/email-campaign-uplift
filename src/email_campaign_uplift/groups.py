@@ -1,5 +1,5 @@
 
-class GroupResult():
+class GroupResult:
     def __init__(self, successes, size):
         self.successes = successes
         self.size = size
