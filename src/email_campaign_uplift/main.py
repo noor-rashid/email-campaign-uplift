@@ -68,8 +68,10 @@ if __name__ == "__main__":
     print(f"Relative lift: {relative_lift:.2%}")
     print(f"95% Wald CI: {wald_lower*100:.2f} to {wald_upper*100:.2f} pct points")
     print(f"95%  Bootstrap CI: {b_lower*100:.2f} to {b_upper*100:.2f} pct points")
-    if b_lower > 0 and b_upper > 0:
+    if b_lower > 0:
         print("Both ends are above 0: treatment raised the visit rate.")
+    elif upper < 0: 
+        print("Both ends are below 0: treatment lowered the visit rate")
     else: 
-        print("Both ends are not above 0. Not enough information to conclude treatment raised the visit rate")
+        print("The interval includes 0: no clear effect")
     print("#"*80)
