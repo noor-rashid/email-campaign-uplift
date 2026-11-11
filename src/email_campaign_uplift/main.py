@@ -66,11 +66,11 @@ if __name__ == "__main__":
     b_lower, b_upper = bootstrap_ci_diff(success_t, success_c, size_t, size_c, n_boot, ci_alpha, seed)
     print(f"Absolute lift: {absolute_lift*100:.2f} pct points")
     print(f"Relative lift: {relative_lift:.2%}")
-    print(f"95% Wald CI: {wald_lower*100:.2f} to {wald_upper*100:.2f} pct points")
-    print(f"95%  Bootstrap CI: {b_lower*100:.2f} to {b_upper*100:.2f} pct points")
-    if b_lower > 0:
+    print(f"{1-ci_alpha:.0%} Wald CI: {wald_lower*100:.2f} to {wald_upper*100:.2f} pct points")
+    print(f"{1-ci_alpha:.0%}  Bootstrap CI: {b_lower*100:.1f} to {b_upper*100:.1f} pct points")
+    if wald_lower > 0:
         print("Both ends are above 0: treatment raised the visit rate.")
-    elif upper < 0: 
+    elif wald_upper < 0: 
         print("Both ends are below 0: treatment lowered the visit rate")
     else: 
         print("The interval includes 0: no clear effect")
