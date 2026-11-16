@@ -1,5 +1,6 @@
-import numpy as np
 import math
+
+import numpy as np
 from scipy.stats import chisquare, norm
 
 
@@ -168,3 +169,28 @@ def sample_size_two_proportion(p_c: float, mde: float, alpha: float = 0.05, powe
     power_part = z_power * np.sqrt(p_c*(1-p_c)+p_t*(1-p_t))
     n = (alpha_part+power_part)**2/mde**2
     return math.ceil(n)
+
+def mde_two_proportion(p_c: float, n_per_group: int, alpha: float, power: float, step=0.0001):
+
+    """
+    finds the smallest absolute lift a one-sided two-proportion z-test can detect
+    with n_per_group people in each group.
+
+    Starts at mde = step and adds step until sample_size_two_proportion says
+    the people needed fit in n_per_group. Used instead of algebra, because
+    mde appears inside both square roots of the sample size formula.
+
+    Args:
+        p_c: float, control success rate, e.g. 0.106
+        n_per_group: int, people available in each group
+        alpha: float, one-sided significance level
+        power: float, chance of rejecting H0 when the lift really is mde
+        step: float, how much mde grows each round (0.0001 = 0.01 pct points)
+
+    Returns:
+        mde: float, smallest detectable absolute lift, accurate to about one step
+    """
+    mde = step
+    while sample_size_two_proportion(p_c, mde, alpha, power) > n_per_group:
+        mde += step  
+    return mde
