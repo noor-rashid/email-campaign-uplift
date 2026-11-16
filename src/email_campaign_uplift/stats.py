@@ -1,4 +1,5 @@
 import numpy as np
+import math
 from scipy.stats import chisquare, norm
 
 
@@ -146,3 +147,24 @@ def bootstrap_ci_diff(success_t: int, success_c: int, size_t: int, size_c: int, 
     lower, upper = np.quantile(lifts, [alpha/2, 1-alpha/2])
     return lower, upper
 
+def sample_size_two_proportion(p_c: float, mde: float, alpha: float = 0.05, power: float = 0.8) -> int:
+    """per group. one sided. pooled under H0 / owned rates under H1, rounded up
+    
+    Args:
+        p_c: float, rate of success in control
+        mde: float, minimum detectable , absolute lift, percentage points
+        alpha: float, significance level
+        power: float, probability of detecting an effect if it is real and practical
+
+    Returns:
+        n: int, rounded up. required sample size for this power and alpha
+    
+    """
+    p_t = p_c + mde
+    p = (p_t+p_c)/2
+    z_alpha = norm.ppf(1-alpha)
+    z_power = norm.ppf(power)
+    alpha_part = z_alpha*np.sqrt(2*p*(1-p))
+    power_part = z_power * np.sqrt(p_c*(1-p_c)+p_t*(1-p_t))
+    n = (alpha_part+power_part)**2/mde**2
+    return math.ceil(n)
