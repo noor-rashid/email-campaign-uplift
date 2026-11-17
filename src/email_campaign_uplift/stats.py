@@ -170,7 +170,7 @@ def sample_size_two_proportion(p_c: float, mde: float, alpha: float = 0.05, powe
     n = (alpha_part+power_part)**2/mde**2
     return math.ceil(n)
 
-def mde_two_proportion(p_c: float, n_per_group: int, alpha: float, power: float, step=0.0001):
+def mde_two_proportion(p_c: float, n_per_group: int, alpha: float=0.05, power: float=0.8, step=0.0001):
 
     """
     finds the smallest absolute lift a one-sided two-proportion z-test can detect
