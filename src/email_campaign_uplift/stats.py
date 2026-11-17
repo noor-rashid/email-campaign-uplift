@@ -194,3 +194,38 @@ def mde_two_proportion(p_c: float, n_per_group: int, alpha: float=0.05, power: f
     while sample_size_two_proportion(p_c, mde, alpha, power) > n_per_group:
         mde += step  
     return mde
+
+def simulate_power(p_c: float, p_t: float, n_per_group: int, alpha: float = 0.05, n_sims: int = 2000, seed: int = 42) -> float:
+    """
+    estimates power by simulating many pretend experiments
+
+    Each round draws a random success count for each group from its true rate,
+    runs z_test_two_proportion on the counts, and counts a win if p < alpha.
+
+    Args:
+        p_c: float, true success rate in control
+        p_t: float, true success rate in treatment
+        n_per_group: int, number of people in each group
+        alpha: float, significance level (one-sided)
+        n_sims: int, number of simulated experiments
+        seed: int, for reproducibility
+
+    Returns:
+        power: float, share of simulated experiments where the test found the effect
+        (when p_t equals p_c this is the false positive rate, close to alpha)
+    """
+
+
+    rng = np.random.default_rng(seed)
+    
+    wins = 0
+    
+    
+    for i in range(n_sims):
+        success_t = rng.binomial(n_per_group, p_t)
+        success_c = rng.binomial(n_per_group, p_c)
+        _, p = z_test_two_proportion(success_t, success_c, n_per_group, n_per_group)
+        if p < alpha:
+            wins += 1
+    power = wins/n_sims
+    return power
