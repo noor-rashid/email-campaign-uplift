@@ -2,6 +2,7 @@ import pytest
 
 from email_campaign_uplift.stats import mde_two_proportion
 
+
 def test_mde_round_trip():
     p_c = 0.10
     n_per_group = 3026

@@ -2,6 +2,7 @@ import pytest
 
 from email_campaign_uplift.stats import simulate_power
 
+
 def test_simulate_power_matches_formula():
     p_c = 0.10
     p_t = 0.12
