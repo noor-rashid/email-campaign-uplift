@@ -5,6 +5,9 @@ from email_campaign_uplift.stats import (
     srm_check,
     wald_ci_diff,
     z_test_two_proportion,
+    sample_size_two_proportion,
+    mde_two_proportion,
+    simulate_power
 )
 
 treatment_group = "Womens E-Mail"
@@ -17,6 +20,7 @@ z_test_alpha = 0.05
 ci_alpha = 0.05
 n_boot = 10000
 seed = 42
+mde_target = 0.01
 
 if __name__ == "__main__":
     data = load_hillstrom_data("data/hillstrom_data.csv")
@@ -75,3 +79,23 @@ if __name__ == "__main__":
     else: 
         print("The interval includes 0: no clear effect")
     print("#"*80)
+    print("#"*80)
+    print()
+    print()
+    print("SAMPLE SIZE & POWER".center(78))
+    print()
+    print()
+    print("#"*80)
+    print()
+    print()
+    print()
+    p_c = success_c_rate
+    n_per_group = min(size_t, size_c)
+    mde = mde_two_proportion(p_c, n_per_group)
+    p_t = p_c + mde
+    sample_size = sample_size_two_proportion(p_c, mde_target, z_test_alpha)
+    power = simulate_power(p_c, p_t, n_per_group)
+    print(f"The smallest absolute lift we can detect: {mde*100:.2f} pct points")
+    print(f"The sample size required to detect 1 pct point of lift: {sample_size}")
+    print(f"The probability of detecting an effect as large as {mde_target*100:.2f} is {power:.0%}")
+    print(f"The observed lift of {absolute_lift*100:.2f} pct points is {(absolute_lift)/(mde):.1f} times the MDE {mde*100:.2f} pct points: the test was big enough to detect it")
