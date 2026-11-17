@@ -2,12 +2,12 @@ from email_campaign_uplift.data import get_metric_group_sizes, load_hillstrom_da
 from email_campaign_uplift.stats import (
     bootstrap_ci_diff,
     calculate_lift,
+    mde_two_proportion,
+    sample_size_two_proportion,
+    simulate_power,
     srm_check,
     wald_ci_diff,
     z_test_two_proportion,
-    sample_size_two_proportion,
-    mde_two_proportion,
-    simulate_power
 )
 
 treatment_group = "Womens E-Mail"
@@ -92,10 +92,10 @@ if __name__ == "__main__":
     p_c = success_c_rate
     n_per_group = min(size_t, size_c)
     mde = mde_two_proportion(p_c, n_per_group)
-    p_t = p_c + mde
+    p_t = p_c + mde_target
     sample_size = sample_size_two_proportion(p_c, mde_target, z_test_alpha)
-    power = simulate_power(p_c, p_t, n_per_group)
+    power_result = simulate_power(p_c, p_t, sample_size)
     print(f"The smallest absolute lift we can detect: {mde*100:.2f} pct points")
     print(f"The sample size required to detect 1 pct point of lift: {sample_size}")
-    print(f"The probability of detecting an effect as large as {mde_target*100:.2f} is {power:.0%}")
+    print(f"The probability of detecting an effect as large as {mde_target:.2f} is {power_result:.0%}")
     print(f"The observed lift of {absolute_lift*100:.2f} pct points is {(absolute_lift)/(mde):.1f} times the MDE {mde*100:.2f} pct points: the test was big enough to detect it")
