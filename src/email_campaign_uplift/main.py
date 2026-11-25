@@ -17,6 +17,7 @@ group_col = 'segment'
 expected_shares = [1/3, 1/3, 1/3]
 srm_alpha = 0.001
 z_test_alpha = 0.05
+power = 0.8
 ci_alpha = 0.05
 n_boot = 10000
 seed = 42
@@ -91,11 +92,11 @@ if __name__ == "__main__":
     print()
     p_c = success_c_rate
     n_per_group = min(size_t, size_c)
-    mde = mde_two_proportion(p_c, n_per_group)
+    mde = mde_two_proportion(p_c, n_per_group, z_test_alpha, power)
     p_t = p_c + mde_target
-    sample_size = sample_size_two_proportion(p_c, mde_target, z_test_alpha)
-    power_result = simulate_power(p_c, p_t, sample_size)
+    sample_size = sample_size_two_proportion(p_c, mde_target, z_test_alpha, power)
+    power_result = simulate_power(p_c, p_t, sample_size, z_test_alpha)
     print(f"The smallest absolute lift we can detect: {mde*100:.2f} pct points")
     print(f"The sample size required to detect 1 pct point of lift: {sample_size}")
-    print(f"The probability of detecting an effect as large as {mde_target:.2f} is {power_result:.0%}")
-    print(f"The observed lift of {absolute_lift*100:.2f} pct points is {(absolute_lift)/(mde):.1f} times the MDE {mde*100:.2f} pct points: the test was big enough to detect it")
+    print(f"The probability of detecting an effect as large as {mde_target*100:.2f} pct points is {power_result:.0%}")
+    print(f"The observed lift of {absolute_lift*100:.2f} pct points is {(absolute_lift)/(mde):.1f} times the MDE of {mde*100:.2f} pct points: the test was big enough to detect it")
